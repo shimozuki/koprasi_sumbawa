@@ -1,91 +1,53 @@
-# Aplikasi Kasir (Point of Sales) 
-Aplikasi ini dapat digunakan untuk melakukan pencatatan transaksi jual beli pada sebuah warung atau toko. Secara template, aplikasi ini menggunakan resource dari https://github.com/Raf-Taufiqurrahman/RILT-Starter dengan beberapa modifikasi yang saya lakukan terhadap komponen-komponen untuk mendukung aplikasi kasir.
+<!--
+**shimozuki/shimozuki** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-## Tech Stack
-
-- Laravel 11.x
-- Inertia
-- React
-- TailwindCSS
-- MySQL
-## Authors
-
-- [Arya Dwi Putra](https://www.github.com/aryadwiputra)
-- [Rafi Taufiqurrahman](https://github.com/Raf-Taufiqurrahman)
+<!-- More info, tips and tricks for making GitHub Profile README can be found in my article at https://towardsdatascience.com/build-a-stunning-readme-for-your-github-profile-9b80434fe5d7 -->
 
 
-## 📌 Fitur
 
-| No  | Nama |  Status                                                     |
-|-----|------------------------------------------------------------|------|
-|  1  | Authentikasi Admin.                            |Done|
-|  2  | Manajemen Pengguna.                 |Done|
-|  3  | Manajemen Hak Akses Pengguna.                      | Done|
-|  4  | Manajemen Role Pengguna                          |Done|
-|  5  | Manajemen Kategori.               |Done|
-|  6  | Manajemen Produk.                                    |Done|
-|  7  | Manajemen Pelanggan.     |Done|
-|  8  | Print Invoice. |Done|
-|  9  | Laporan Penjualan. |On progress|
-|  10  | Laporan Keuntungan. |On progress|
-|  11  | Riwayat Order. |On progress|
-|  12  | Chart/Grafik Pendapatan. |On progress|
+<!-- # Hii  <img src="202af01200210c11a68ca2da7ef03321.gif" width="50px"> -->
+<h1 align="center">### Hi there, I'm Shimozuki <img src="202af01200210c11a68ca2da7ef03321.gif" width="50px">
+  
+![readmebox (1)](https://github-production-user-asset-6210df.s3.amazonaws.com/34431847/258598204-a4ad0e76-297d-4387-9322-09d83c233689.svg)</h1>
 
-------------
-## 💻 Panduan Instalasi Project
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=shimozuki&color=blue)
+![Profile Views](https://komarev.com/ghpvc/?username=shimozuki)
+## I'm a Web and mobile developer from West Nusa Tenggara, Indonesia
+- 🌱 I’m currently learning Laravel & Flutter
+- 🥅 2021 Goals: Contribute more to Open Source projects
+- ⚡ Fun fact: play games
 
-1. **Clone Repository**
-```bash
-git clone https://github.com/aryadwiputra/point-of-sales 
-```
-2. **Buka terminal, lalu ketik**
-```
-cd point-of-sales
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-```
+### Connect with me:
 
-3. **Buka ```.env``` lalu ubah baris berikut sesuaikan dengan databasemu yang ingin dipakai**
-```
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
-```
+[<img align="left" alt="Ahmad Robbiul Iman | facebook" width="22px" src="https://cdn.cdnlogo.com/logos/f/91/facebook-icon.svg"/>][facebook]
+[<img align="left" alt="Ahmad Robbiul Iman | Instagram" width="22px" src="https://cdn.cdnlogo.com/logos/i/4/instagram.svg"/>][instagram]
 
-3. **Jalankan bash**
-```bash
-php artisan config:cache
-php artisan storage:link
-php artisan route:clear
-```
+<br />
 
-4. **Jalankan migrations dan seeders**
-```
-php artisan migrate --seed
-```
-5. **Jalankan nodejs**
-```
-npm run dev
-```
+### Languages and Tools:
 
-5. **Jalankan website**
-```bash
-php artisan serve
-```
+<img align="left" alt="Pop!_OS" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/ubuntu/ubuntu.png" />
+<img align="left" alt="Visual Studio Code" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />
+<img align="left" alt="HTML5" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" />
+<img align="left" alt="CSS3" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" />
+<img align="left" alt="Sass" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/sass/sass.png" />
+<img align="left" alt="Laravel" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/laravel/laravel.png" />
+<img align="left" alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />
+<img align="left" alt="Dart" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/dart/dart.png" />
+<img align="left" alt="Vue" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/vue/vue.png" />
+<img align="left" alt="Flutter" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/flutter/flutter.png" />
 
-## Jika ada pertanyaan silahkan hubungi saya di email :
+<br /> <br/>
 
-```
-aryaadwptr@gmail.com
-```
+<a href="https://github.com/ryo-ma/github-profile-trophy"><h2>🏆 Github Profile Trophy</h2></a>
+<a href="https://github.com/ryo-ma/github-profile-trophy">
+  <img width=800 src="https://github-profile-trophy.vercel.app/?username=shimozuki&column=8&theme=gruvbox&no-frame=true"/>
+</a>
 
-## Request Fitur Baru dan Pelaporan Bug
-
-Anda dapat meminta fitur baru maupun melaporkan bug melalui menu **issues** yang sudah disediakan oleh GitHub (lihat menu di atas), posting issues baru dan kita akan berdiskusi disana.
-
-## Berkontribusi
-
-Siapapun dapat berkontribusi pada proyek ini mulai dari pemrograman, pembuakan buku manual, sampai dengan mengenalkan produk ini kepada masyarakat Indonesia agar mengurangi kesenjangan pendidikan teknologi dengan cara membuat postingan issue di repository ini.
+[facebook]: https://www.facebook.com/bi.raja.13/
+[instagram]: https://www.instagram.com/r.obbiul.013/
+<div>
+  <img height="170" align="left" src="https://github-readme-stats.vercel.app/api?username=shimozuki&bg_color=30,5B5F97,FFC145&title_color=fff&text_color=fff" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=shimozuki&bg_color=30,FF6B6C,833ab4&title_color=fff&text_color=fff&layout=compact" />
+</div>
+   
