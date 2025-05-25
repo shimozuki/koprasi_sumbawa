@@ -1,13 +1,17 @@
 import Card from '@/Components/Dashboard/Card';
 import Table from '@/Components/Dashboard/Table';
+import TransactionCharts from '@/Components/Dashboard/TransactionCharts';
 import Widget from '@/Components/Dashboard/Widget';
 import DashboardLayout from '@/Layouts/DashboardLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { IconBox, IconCategory, IconMoneybag, IconUsers } from '@tabler/icons-react';
-export default function Dashboard() {
-
-
-
+import { useEffect } from 'react';
+export default function Dashboard({dailyTransactions, monthlyTransactions, yearlyTransactions}) {
+    useEffect(()=>{
+        console.log(dailyTransactions)
+        console.log(monthlyTransactions)
+        console.log(yearlyTransactions)
+    },[dailyTransactions, monthlyTransactions, yearlyTransactions]);
     return (
         <>
             <Head title='Dashboard' />
@@ -41,6 +45,7 @@ export default function Dashboard() {
                     total={2}
                 />
             </div>
+            <TransactionCharts dailyTransactions={dailyTransactions} monthlyTransactions={monthlyTransactions} yearlyTransactions={yearlyTransactions}></TransactionCharts>
         </>
     );
 }

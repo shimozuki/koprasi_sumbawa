@@ -3,8 +3,10 @@
 use App\Http\Controllers\Apps\CategoryController;
 use App\Http\Controllers\Apps\CustomerController;
 use App\Http\Controllers\Apps\ProductController;
+use App\Http\Controllers\Apps\TransactionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -22,9 +24,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
-    Route::get('/', function () {
-        return Inertia::render('Dashboard/Index');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/', [TransactionController::class, 'getTransactionStats'])->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
     // roles route
     Route::resource('/roles', RoleController::class)->except(['create', 'edit', 'show']);
@@ -42,6 +42,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     //route transaction addToCart
     Route::post('/transactions/addToCart', [\App\Http\Controllers\Apps\TransactionController::class, 'addToCart'])->name('transactions.addToCart');
+    Route::get('/transactions/stats', [\App\Http\Controllers\Apps\TransactionController::class, 'getTransactionStats'])->name('transactions.stats');
+
 
     //route transaction destroyCart
     Route::delete('/transactions/{cart_id}/destroyCart', [\App\Http\Controllers\Apps\TransactionController::class, 'destroyCart'])->name('transactions.destroyCart');
@@ -54,6 +56,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/dashboard/reports/sales', [ReportController::class, 'salesReport'])
+        ->name('reports.sales');
 });
 
 require __DIR__ . '/auth.php';

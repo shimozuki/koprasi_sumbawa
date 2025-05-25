@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -129,7 +130,6 @@ class TransactionController extends Controller
             // Handle case where no cart is found (e.g., redirect with error message)
             return back()->withErrors(['message' => 'Cart not found']);
         }
-
     }
 
     /**
@@ -152,6 +152,7 @@ class TransactionController extends Controller
         //generate no invoice
         $invoice = 'TRX-' . Str::upper($random);
 
+        $paid_status = $request->cash < $request->grand_total ? 'belum lunas' : 'lunas';
         //insert transaction
         $transaction = Transaction::create([
             'cashier_id' => auth()->user()->id,
@@ -161,6 +162,7 @@ class TransactionController extends Controller
             'change' => $request->change,
             'discount' => $request->discount,
             'grand_total' => $request->grand_total,
+            'paid_status' => $paid_status,
         ]);
 
         //get carts
@@ -194,7 +196,6 @@ class TransactionController extends Controller
             $product = Product::find($cart->product_id);
             $product->stock = $product->stock - $cart->qty;
             $product->save();
-
         }
 
         //delete carts
@@ -214,6 +215,31 @@ class TransactionController extends Controller
 
         return Inertia::render('Dashboard/Transactions/Print', [
             'transaction' => $transaction
+        ]);
+    }
+
+    public function getTransactionStats()
+    {
+        $dailyTransactions = Transaction::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->limit(30)
+            ->get();
+
+        $monthlyTransactions = Transaction::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        $yearlyTransactions = Transaction::select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as count'))
+            ->groupBy('year')
+            ->orderBy('year', 'asc')
+            ->get();
+
+        return Inertia::render('Dashboard/Index', [
+            'dailyTransactions' => $dailyTransactions, // Pass the collection directly    
+            'monthlyTransactions' => $monthlyTransactions,
+            'yearlyTransactions' => $yearlyTransactions,
         ]);
     }
 }

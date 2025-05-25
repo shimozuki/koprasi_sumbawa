@@ -60,6 +60,17 @@ export default function Menu() {
         ]
     },
     {
+        title: "Laporan",
+        details: [
+            {
+                title: "Laporan Transaksi",
+                icon: <IconBooks size={20} />,
+                href: route('reports.sales'),
+                permissions: true, // atau kamu bisa cek pakai permission logic
+            },
+        ]
+    },
+    {
         title: 'User Management',
         details: [
             {

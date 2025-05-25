@@ -10,14 +10,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Transaction extends Model
 {
     use HasFactory;
-    
+
     /**
      * fillable
      *
      * @var array
      */
     protected $fillable = [
-        'cashier_id', 'customer_id', 'invoice', 'cash', 'change', 'discount', 'grand_total'
+        'cashier_id',
+        'customer_id',
+        'invoice',
+        'cash',
+        'change',
+        'discount',
+        'grand_total',
+        'paid_status',
     ];
 
     /**
@@ -68,7 +75,7 @@ class Transaction extends Model
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d-M-Y H:i:s'),
+            get: fn($value) => Carbon::parse($value)->format('d-M-Y H:i:s'),
         );
     }
 }

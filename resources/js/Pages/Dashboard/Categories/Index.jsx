@@ -37,8 +37,7 @@ export default function Index({ categories }) {
                             <Table.Th className='w-10'>No</Table.Th>
                             <Table.Th className='w-40'>Nama</Table.Th>
                             <Table.Th >Deskripsi</Table.Th>
-                            <Table.Th >Gambar</Table.Th>
-                            <Table.Th></Table.Th>
+                            <Table.Th>Action</Table.Th>
                         </tr>
                     </Table.Thead>
                     <Table.Tbody>
@@ -50,13 +49,6 @@ export default function Index({ categories }) {
                                     </Table.Td>
                                     <Table.Td>{category.name}</Table.Td>
                                     <Table.Td>{category.description}</Table.Td>
-                                    <Table.Td>
-                                        <img
-                                            src={category.image}
-                                            alt={category.name}
-                                            className='w-14'
-                                        />
-                                    </Table.Td>
                                     <Table.Td>
                                         <div className='flex gap-2'>
                                             <Button

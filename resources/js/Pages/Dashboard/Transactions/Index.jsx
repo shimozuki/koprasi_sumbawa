@@ -71,38 +71,31 @@ export default function Index({ carts, carts_total, customers }) {
 
     const storeTransaction = (e) => {
         e.preventDefault();
+    
         if (!data.customer_id) {
-            toast('Pilih pelanggan terlebih dahulu', {
-                style: {
-                    borderRadius: '10px',
-                    background: '#FF0000',
-                    color: '#fff',
-                },
-            });
-        } else {
-            if (cash >= grandTotal) {
-                router.post(route('transactions.store'), {
-                    customer_id: selectedCustomer ? selectedCustomer.id : '',
-                    discount,
-                    grand_total: grandTotal,
-                    cash,
-                    change,
-                }, {
-                    onSuccess: () => {
-                        toast('Data transaksi berhasil disimpan', {
-                            icon: '👏',
-                            style: {
-                                borderRadius: '10px',
-                                background: '#1C1F29',
-                                color: '#fff',
-                            },
-                        })
-                    }
-                });
+            toast.error('Pilih pelanggan terlebih dahulu');
+            return;
+        }
+    
+        if (cash < grandTotal) {
+            if (!confirm('Pembayaran kurang dari total. Simpan sebagai utang?')) {
+                return;
             }
         }
+    
+        router.post(route('transactions.store'), {
+            customer_id: selectedCustomer?.id || '',
+            discount,
+            grand_total: grandTotal,
+            cash,
+            change,
+        }, {
+            onSuccess: () => {
+                toast.success('Data transaksi berhasil disimpan');
+            }
+        });
     };
-
+    
     return (
         <>
             <Head title="Dashboard Transaksi" />
@@ -266,8 +259,8 @@ export default function Index({ carts, carts_total, customers }) {
                             label={'Bayar'}
                             icon={<IconMoneybag size={20} strokeWidth={1.5} />}
                             onClick={storeTransaction}
-                            disabled={cash < grandTotal}
-                            className={`border bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-950 dark:border-gray-800 dark:text-gray-200 dark:hover:bg-gray-900 mt-5 ${cash < grandTotal ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={false}
+                            className={`border bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-950 dark:border-gray-800 dark:text-gray-200 dark:hover:bg-gray-900 mt-5`}
                         >
                             Bayar
                         </Button>

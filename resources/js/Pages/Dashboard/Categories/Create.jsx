@@ -67,7 +67,7 @@ export default function Create() {
                 form={submit}
             >
                 <div className='grid grid-cols-12 gap-4'>
-                    <div className='col-span-12'>
+                    {/* <div className='col-span-12'>
                         <Input
                             name='image'
                             label={'Image'}
@@ -76,7 +76,7 @@ export default function Create() {
                             errors={errors.image}
                             onChange={handleImageChange}
                         />
-                    </div>
+                    </div> */}
                     <div className='col-span-12'>
                         <Input
                             name='name'

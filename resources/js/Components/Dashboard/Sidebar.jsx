@@ -24,7 +24,7 @@ export default function Sidebar({ sidebarOpen }) {
                             <div className="text-sm font-semibold capitalize text-gray-700 dark:text-gray-50">
                                 {auth.user.name}
                             </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">
+                            <div className="text-xs text-gray-500 dark:text-gray-400"> 
                                 {auth.user.email}
                             </div>
                         </div>
