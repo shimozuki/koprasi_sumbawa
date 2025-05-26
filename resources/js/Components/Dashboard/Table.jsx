@@ -61,6 +61,14 @@ const Th = ({ className, children }) => {
     );
 };
 
+const Tfoot = ({ className, children }) => {
+    return (
+        <tfoot className={`${className} border-t bg-gray-50 dark:border-gray-900 dark:bg-gray-950`}>
+            {children}
+        </tfoot>
+    );
+};
+
 const Empty = ({ colSpan, message, children }) => {
     return (
         <tr>
@@ -84,5 +92,6 @@ Table.Tbody = Tbody;
 Table.Td = Td;
 Table.Th = Th;
 Table.Empty = Empty;
+Table.Tfoot = Tfoot;
 
 export default Table;
