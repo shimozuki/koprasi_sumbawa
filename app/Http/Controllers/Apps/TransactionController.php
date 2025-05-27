@@ -141,19 +141,28 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         /**
-         * algorithm generate no invoice
+         * Jika customer_id kosong tapi ada nama pegawai, maka buat customer baru
          */
+        if (!$request->customer_id && $request->has('nama_pegawai')) {
+            $customer = Customer::create([
+                'name' => $request->nama_pegawai,
+                'no_telp' => '0',
+                'address' => 'unknown',
+            ]);
+            $request->merge(['customer_id' => $customer->id]); // inject id ke request
+        }
+
+        // generate invoice
         $length = 10;
         $random = '';
         for ($i = 0; $i < $length; $i++) {
             $random .= rand(0, 1) ? rand(0, 9) : chr(rand(ord('a'), ord('z')));
         }
-
-        //generate no invoice
         $invoice = 'TRX-' . Str::upper($random);
 
         $paid_status = $request->cash < $request->grand_total ? 'belum lunas' : 'lunas';
-        //insert transaction
+
+        // insert transaction
         $transaction = Transaction::create([
             'cashier_id' => auth()->user()->id,
             'customer_id' => $request->customer_id,
@@ -165,13 +174,9 @@ class TransactionController extends Controller
             'paid_status' => $paid_status,
         ]);
 
-        //get carts
+        // proses carts dan detail sama seperti sebelumnya...
         $carts = Cart::where('cashier_id', auth()->user()->id)->get();
-
-        //insert transaction detail
         foreach ($carts as $cart) {
-
-            //insert transaction detail
             $transaction->details()->create([
                 'transaction_id' => $transaction->id,
                 'product_id' => $cart->product_id,
@@ -179,34 +184,25 @@ class TransactionController extends Controller
                 'price' => $cart->price,
             ]);
 
-            //get price
             $total_buy_price = $cart->product->buy_price * $cart->qty;
             $total_sell_price = $cart->product->sell_price * $cart->qty;
-
-            //get profits
             $profits = $total_sell_price - $total_buy_price;
 
-            //insert provits
             $transaction->profits()->create([
                 'transaction_id' => $transaction->id,
                 'total' => $profits,
             ]);
 
-            //update stock product
             $product = Product::find($cart->product_id);
-            $product->stock = $product->stock - $cart->qty;
+            $product->stock -= $cart->qty;
             $product->save();
         }
 
-        //delete carts
         Cart::where('cashier_id', auth()->user()->id)->delete();
 
-        // return response()->json([
-        //     'success' => true,
-        //     'data' => $transaction
-        // ]);
         return to_route('transactions.print', $transaction->invoice);
     }
+
 
     public function print($invoice)
     {

@@ -69,33 +69,45 @@ export default function Index({ carts, carts_total, customers }) {
         });
     };
 
+    const [customerType, setCustomerType] = useState('anggota'); // default anggota
+    const [namaPegawai, setNamaPegawai] = useState('');
+
     const storeTransaction = (e) => {
         e.preventDefault();
-    
-        if (!data.customer_id) {
+
+        // Validasi pelanggan
+        if (customerType === 'anggota' && !selectedCustomer?.id) {
             toast.error('Pilih pelanggan terlebih dahulu');
             return;
         }
-    
-        if (cash < grandTotal) {
-            if (!confirm('Pembayaran kurang dari total. Simpan sebagai utang?')) {
-                return;
-            }
+
+        // Validasi nama pegawai
+        if (customerType === 'pegawai' && !namaPegawai) {
+            toast.error('Nama pegawai wajib diisi');
+            return;
         }
-    
+
+        // Konfirmasi utang
+        if (cash < grandTotal && !confirm('Pembayaran kurang dari total. Simpan sebagai utang?')) {
+            return;
+        }
+
+        // Kirim data ke Laravel
         router.post(route('transactions.store'), {
-            customer_id: selectedCustomer?.id || '',
+            customer_id: customerType === 'anggota' ? selectedCustomer?.id : '',
+            nama_pegawai: customerType === 'pegawai' ? namaPegawai : '',
             discount,
             grand_total: grandTotal,
             cash,
             change,
         }, {
             onSuccess: () => {
-                toast.success('Data transaksi berhasil disimpan');
+                toast.success('Transaksi berhasil disimpan');
             }
         });
     };
-    
+
+
     return (
         <>
             <Head title="Dashboard Transaksi" />
@@ -170,19 +182,60 @@ export default function Index({ carts, carts_total, customers }) {
                                     value={auth.user.name}
                                 />
                             </div>
-                            <div className="col-span-12 md:col-span-6">
-                                <InputSelect
-                                    label="Pelanggan"
-                                    data={customers}
-                                    selected={selectedCustomer}
-                                    setSelected={setSelectedCustomerHandler}
-                                    placeholder="Pelanggan"
-                                    errors={errors.customer_id}
-                                    multiple={false}
-                                    searchable={true}
-                                    displayKey='name'
-                                />
+
+                            {customerType === 'anggota' ? (
+                                <div className="col-span-12 md:col-span-6">
+                                    <InputSelect
+                                        label="Pelanggan"
+                                        data={customers}
+                                        selected={selectedCustomer}
+                                        setSelected={setSelectedCustomerHandler}
+                                        placeholder="Pilih Pelanggan"
+                                        errors={errors.customer_id}
+                                        multiple={false}
+                                        searchable={true}
+                                        displayKey='name'
+                                    />
+                                </div>
+                            ) : (
+                                <div className="col-span-12 md:col-span-6">
+                                    <Input
+                                        type="text"
+                                        label="Nama Pegawai"
+                                        placeholder="Masukkan nama pegawai"
+                                        value={namaPegawai}
+                                        onChange={(e) => setNamaPegawai(e.target.value)}
+                                    />
+                                </div>
+                            )}
+                            <div className="col-span-6">
+                                <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Tipe Pelanggan</label>
+                                <div className="flex items-center space-x-2">
+                                    <label className="flex items-center">
+                                        <input
+                                            type="radio"
+                                            value="anggota"
+                                            checked={customerType === 'anggota'}
+                                            onChange={() => setCustomerType('anggota')}
+                                            className="mr-1"
+                                        />
+                                        Anggota
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="radio"
+                                            value="pegawai"
+                                            checked={customerType === 'pegawai'}
+                                            onChange={() => setCustomerType('pegawai')}
+                                            className="mr-1"
+                                        />
+                                        Pegawai
+                                    </label>
+                                </div>
                             </div>
+
+
+
                         </div>
                     </Card>
 
