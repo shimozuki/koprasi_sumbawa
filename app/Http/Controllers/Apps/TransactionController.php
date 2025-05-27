@@ -148,6 +148,7 @@ class TransactionController extends Controller
                 'name' => $request->nama_pegawai,
                 'no_telp' => '0',
                 'address' => 'unknown',
+                'is_anggota' => 2, // 2 = Pegawai
             ]);
             $request->merge(['customer_id' => $customer->id]); // inject id ke request
         }

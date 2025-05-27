@@ -59,6 +59,7 @@ class CustomerController extends Controller
             'name' => $request->name,
             'no_telp' => $request->no_telp,
             'address' => $request->address,
+            'is_anggota' => 1,
         ]);
 
         //redirect
