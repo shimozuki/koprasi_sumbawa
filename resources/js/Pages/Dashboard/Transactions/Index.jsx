@@ -219,7 +219,7 @@ export default function Index({ carts, carts_total, customers }) {
                                             onChange={() => setCustomerType('anggota')}
                                             className="mr-1"
                                         />
-                                        Anggota
+                                        <span class="text-black">Anggota</span>
                                     </label>
                                     <label className="flex items-center">
                                         <input
@@ -229,7 +229,7 @@ export default function Index({ carts, carts_total, customers }) {
                                             onChange={() => setCustomerType('pegawai')}
                                             className="mr-1"
                                         />
-                                        Pegawai
+                                        <span class="text-black">Pegawai</span>
                                     </label>
                                 </div>
                             </div>
