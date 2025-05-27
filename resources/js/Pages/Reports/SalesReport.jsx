@@ -90,7 +90,7 @@ export default function SalesReport({ details, filter, start_date, end_date, sta
                         className="border p-2 rounded w-full bg-white dark:bg-gray-900 text-black dark:text-white"
                     >
                         <option value="">Semua</option>
-                        <option value="0">Tamu</option>
+                        <option value="3">Tamu</option>
                         <option value="1">Anggota</option>
                         <option value="2">Pegawai</option>
                     </select>
