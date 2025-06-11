@@ -28,7 +28,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
                     <div className="text-center mb-6">
                         <ApplicationLogo className="w-20 h-20 mx-auto mb-4" />
-                        <h1 className='text-3xl text-black font-bold mb-2'>Aplikasi Kasir</h1>
+                        <h1 className='text-3xl text-black font-bold mb-2'>TransWaserda</h1>
                         <h2 className="text-xl font-semibold text-gray-700">Login</h2>
                         <p className="text-gray-500">Lanjutkan ke Dashboard</p>
                     </div>

@@ -122,7 +122,7 @@ export default function SalesReport({ details, filter, start_date, end_date, sta
                     {details.map((item, index) => (
                         <tr key={item.id}>
                             <Table.Td>{index + 1}</Table.Td>
-                            {(customerType === '2' || (customerType === '1' && statusFilter === 'belum lunas')) && (
+                            {(customerType === '2' || statusFilter === 'belum lunas') && (
                                 <Table.Td>{item.transaction.customer?.name || '-'}</Table.Td>
                             )}
                             <Table.Td>{item.product.title}</Table.Td>

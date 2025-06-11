@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         //get products
         $products = Product::when(request()->search, function ($products) {
-            $products = $products->where('title', 'like', '%' . request()->search . '%');
+            $products = $products->where('description', 'like', '%' . request()->search . '%');
         })->with('category')->latest()->paginate(5);
 
         //return inertia
@@ -145,7 +145,6 @@ class ProductController extends Controller
                 'sell_price' => $request->sell_price,
                 'stock' => $request->stock,
             ]);
-
         }
 
         //update product without image
