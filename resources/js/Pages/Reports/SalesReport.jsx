@@ -38,8 +38,14 @@ export default function SalesReport({ details, filter, start_date, end_date, sta
     };
 
 
-    const formatPrice = (price) =>
-        price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+    const formatPrice = (price) => {
+        const num = typeof price === 'string' ? parseFloat(price) : price;
+        return num.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        });
+    };
     const totalPendapatan = details.reduce((total, item) => {
         return total + (item.price * item.qty);
     }, 0);
@@ -108,42 +114,41 @@ export default function SalesReport({ details, filter, start_date, end_date, sta
                 <Table.Thead>
                     <tr>
                         <Table.Th>No</Table.Th>
-                        {(customerType === '2' || statusFilter === 'belum lunas') && <Table.Th>Nama</Table.Th>}
+                        <Table.Th>Nama Pelanggan</Table.Th>
                         <Table.Th>Produk</Table.Th>
                         <Table.Th>Qty</Table.Th>
+                        <Table.Th>Tanggal</Table.Th>
+                        <Table.Th>Status Pembayaran</Table.Th>
                         <Table.Th>Harga</Table.Th>
                         <Table.Th>Total</Table.Th>
-                        <Table.Th>Status Pembayaran</Table.Th>
-                        <Table.Th>Tanggal</Table.Th>
                     </tr>
                 </Table.Thead>
+
 
                 <Table.Tbody>
                     {details.map((item, index) => (
                         <tr key={item.id}>
                             <Table.Td>{index + 1}</Table.Td>
-                            {(customerType === '2' || statusFilter === 'belum lunas') && (
-                                <Table.Td>{item.transaction.customer?.name || '-'}</Table.Td>
-                            )}
+                            <Table.Td>{item.transaction.customer?.name || '-'}</Table.Td>
                             <Table.Td>{item.product.title}</Table.Td>
                             <Table.Td>{item.qty}</Table.Td>
-                            <Table.Td>{formatPrice(item.price)}</Table.Td>
-                            <Table.Td>{formatPrice(item.price * item.qty)}</Table.Td>
-                            <Table.Td>{item.transaction.paid_status}</Table.Td>
                             <Table.Td>
                                 {new Date(item.created_at).toLocaleString('id-ID', {
                                     dateStyle: 'short',
                                     timeStyle: 'short',
                                 })}
                             </Table.Td>
+                            <Table.Td>{item.transaction.paid_status}</Table.Td>
+                            <Table.Td>{formatPrice(item.price)}</Table.Td>
+                            <Table.Td>{formatPrice(item.price * item.qty)}</Table.Td>
                         </tr>
                     ))}
                 </Table.Tbody>
 
                 <Table.Tfoot>
                     <tr>
-                        <Table.Td colSpan={6}></Table.Td>
-                        <Table.Td className="text-right font-semibold">Total</Table.Td>
+                        {/* <Table.Td colSpan={6}></Table.Td> */}
+                        <Table.Td colSpan={7} className="text-right font-semibold">Total</Table.Td>
                         <Table.Td className="font-bold text-green-600">{formatPrice(totalPendapatan)}</Table.Td>
                     </tr>
                 </Table.Tfoot>

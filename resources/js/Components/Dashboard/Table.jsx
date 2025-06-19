@@ -18,8 +18,8 @@ const Card = ({ icon, title, className, children }) => {
 
 const Table = ({ children }) => {
     return (
-        <div className="w-full overflow-hidden overflow-x-auto border-collapse rounded-b-lg border border-t-0 dark:border-gray-900">
-            <table className="w-full text-sm">
+        <div className="w-full overflow-x-auto border-collapse rounded-b-lg border border-t-0 dark:border-gray-900">
+            <table className="w-full text-sm table-fixed">
                 {children}
             </table>
         </div>
@@ -40,9 +40,9 @@ const Tbody = ({ className, children }) => {
     );
 };
 
-const Td = ({ className, children }) => {
+const Td = ({ className, children, colSpan }) => {
     return (
-        <td
+        <td colSpan={colSpan}
             className={`${className} whitespace-nowrap p-4 align-middle text-gray-700 dark:text-gray-400`}
         >
             {children}

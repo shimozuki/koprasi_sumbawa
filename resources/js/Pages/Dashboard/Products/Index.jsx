@@ -10,6 +10,12 @@ import Barcode from '@/Components/Dashboard/Barcode'
 
 export default function Index({ products }) {
     const { roles, permissions, errors, } = usePage().props;
+    const formatPrice = (price) =>
+        Number(price).toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        });
 
     return (
         <>
@@ -63,8 +69,8 @@ export default function Index({ products }) {
                                     </Table.Td>
                                     <Table.Td>{product.category.name}</Table.Td>
                                     <Table.Td>{product.description}</Table.Td>
-                                    <Table.Td>{(product.buy_price / 100).toFixed(2)}</Table.Td>
-                                    <Table.Td>{(product.sell_price / 100).toFixed(2)}</Table.Td>
+                                    <Table.Td>{formatPrice(product.buy_price)}</Table.Td>
+                                    <Table.Td>{formatPrice(product.sell_price)}</Table.Td>
                                     <Table.Td>{product.stock}</Table.Td>
                                     <Table.Td>
                                         <div className='flex gap-2'>
