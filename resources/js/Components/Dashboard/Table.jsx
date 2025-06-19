@@ -18,8 +18,8 @@ const Card = ({ icon, title, className, children }) => {
 
 const Table = ({ children }) => {
     return (
-        <div className="w-full overflow-x-auto border-collapse rounded-b-lg border border-t-0 dark:border-gray-900">
-            <table className="w-full text-sm table-fixed">
+        <div className="w-full overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800">
+            <table className="min-w-[768px] w-full text-sm text-left">
                 {children}
             </table>
         </div>
