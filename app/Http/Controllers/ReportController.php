@@ -6,6 +6,8 @@ use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Customer;
+use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -64,5 +66,65 @@ class ReportController extends Controller
             'status' => $status,
             'jenis_customer' => $jenis_customer, // <- penting
         ]);
+    }
+
+    public function markAsPaid(Request $request, $id)
+    {
+        $trx = Transaction::findOrFail($id);
+        $cash = $request->input('cash');
+        $grand_total = $trx->grand_total;
+
+        // Validasi cash
+        if ($cash < $grand_total) {
+            // Cek apakah ini request dari Inertia (SPA)
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Jumlah pembayaran kurang dari total tagihan'
+                ], 422);
+            }
+
+            return back()->with('error', 'Jumlah pembayaran kurang dari total tagihan');
+        }
+
+        $trx->cash = $cash;
+        $trx->change = $cash - $grand_total;
+        $trx->paid_status = 'lunas';
+        $trx->save();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Transaksi berhasil dibayar'
+            ]);
+        }
+
+        return back()->with('success', 'Transaksi berhasil dibayar');
+    }
+
+    public function exportPdf(Request $request)
+    {
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $status = $request->status;
+        $jenis_customer = $request->is_anggota;
+
+        $query = TransactionDetail::with(['transaction.customer', 'product']);
+
+        if ($start_date && $end_date) {
+            $query->whereBetween('created_at', [$start_date, $end_date]);
+        }
+
+        if ($status) {
+            $query->whereHas('transaction', fn($q) => $q->where('paid_status', $status));
+        }
+
+        if ($jenis_customer) {
+            $query->whereHas('transaction.customer', fn($q) => $q->where('jenis', $jenis_customer));
+        }
+
+        $details = $query->get();
+
+        $pdf = Pdf::loadView('reports.sales_pdf', compact('details', 'start_date', 'end_date', 'status', 'jenis_customer'));
+        return $pdf->stream('laporan-penjualan.pdf');
     }
 }

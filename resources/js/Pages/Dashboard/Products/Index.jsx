@@ -42,7 +42,6 @@ export default function Index({ products }) {
                     <Table.Thead>
                         <tr>
                             <Table.Th className='w-10'>No</Table.Th>
-                            <Table.Th >Kode</Table.Th>
                             <Table.Th >Kategori</Table.Th>
                             <Table.Th>Nama</Table.Th>
                             <Table.Th>Harga Beli</Table.Th>
@@ -57,15 +56,6 @@ export default function Index({ products }) {
                                 <tr className='hover:bg-gray-100 dark:hover:bg-gray-900' key={i}>
                                     <Table.Td className='text-center'>
                                         {++i + (products.current_page - 1) * products.per_page}
-                                    </Table.Td>
-                                    <Table.Td>
-                                        <Barcode
-                                            value={product.barcode}
-                                            format={'CODE39'}
-                                            width={2}
-                                            height={20}
-                                            lineColor={'#000'}
-                                        />
                                     </Table.Td>
                                     <Table.Td>{product.category.name}</Table.Td>
                                     <Table.Td>{product.description}</Table.Td>

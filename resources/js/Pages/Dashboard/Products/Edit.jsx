@@ -15,7 +15,6 @@ export default function Edit({ categories, product }) {
 
     const { data, setData, post, processing } = useForm({
         image: '',
-        barcode: product.barcode,
         title: product.title,
         category_id: product.category_id,
         description: product.description,
@@ -108,16 +107,6 @@ export default function Edit({ categories, product }) {
                             multiple={false}
                             searchable={true}
                             displayKey='name'
-                        />
-                    </div>
-                    <div className='col-span-12'>
-                        <Input
-                            type={'text'}
-                            label={'Kode Produk/Barcode'}
-                            value={data.barcode}
-                            onChange={e => setData('barcode', e.target.value)}
-                            errors={errors.barcode}
-                            placeholder={'Barcode'}
                         />
                     </div>
                     <div className='col-span-6'>

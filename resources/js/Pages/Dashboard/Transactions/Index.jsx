@@ -10,7 +10,7 @@ import InputSelect from '@/Components/Dashboard/InputSelect';
 import Table from '@/Components/Dashboard/Table';
 import toast from 'react-hot-toast';
 
-export default function Index({ carts, carts_total, customers }) {
+export default function Index({ carts, carts_total, customers, products }) {
     const { errors, auth } = usePage().props;
 
     const [barcode, setBarcode] = useState('');
@@ -129,21 +129,15 @@ export default function Index({ carts, carts_total, customers }) {
                         form={addToCart}
                     >
                         <div className="mb-2">
-                            <Input
-                                type={'text'}
-                                label={'Scan/Input Barcode Produk'}
-                                placeholder={'Barcode Produk'}
-                                onChange={e => setBarcode(e.target.value)}
-                                onKeyUp={searchProduct}
-                            />
-                        </div>
-                        <div className="mb-2">
-                            <Input
-                                type={'text'}
-                                label={'Produk'}
-                                placeholder={'Nama produk'}
-                                disabled
-                                value={product.title || ''}
+                            <InputSelect
+                                label="Pilih Produk"
+                                data={products}
+                                selected={product}
+                                setSelected={setProduct}
+                                placeholder="Pilih Produk"
+                                multiple={false}
+                                searchable={true}
+                                displayKey='title'
                             />
                         </div>
                         <div className="mb-2">

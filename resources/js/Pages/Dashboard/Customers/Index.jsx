@@ -12,25 +12,25 @@ export default function Index({ customers }) {
 
     return (
         <>
-            <Head title='Pelanggan' />
+            <Head title='Anggota Koperasi' />
             <div className='mb-2'>
                 <div className='flex justify-between items-center gap-2'>
                     <Button
                         type={'link'}
                         icon={<IconCirclePlus size={20} strokeWidth={1.5} />}
                         className={'border bg-white text-gray-700 dark:bg-gray-950 dark:border-gray-800 dark:text-gray-200'}
-                        label={'Tambah Data Pelanggan'}
+                        label={'Tambah Data Anggota Koperasi'}
                         href={route('customers.create')}
                     />
                     <div className='w-full md:w-4/12'>
                         <Search
                             url={route('customers.index')}
-                            placeholder='Cari data berdasarkan nama pelanggan...'
+                            placeholder='Cari data berdasarkan nama Anggota Koperasi...'
                         />
                     </div>
                 </div>
             </div>
-            <Table.Card title={'Data Pelanggan'}>
+            <Table.Card title={'Data Anggota Koperasi'}>
                 <Table>
                     <Table.Thead>
                         <tr>
@@ -74,7 +74,7 @@ export default function Index({ customers }) {
                                     <div className='flex justify-center items-center text-center mb-2'>
                                         <IconDatabaseOff size={24} strokeWidth={1.5} className='text-gray-500 dark:text-white' />
                                     </div>
-                                    <span className='text-gray-500'>Data pelanggan</span> <span className='text-rose-500 underline underline-offset-2'>tidak ditemukan.</span>
+                                    <span className='text-gray-500'>Data Anggota Koperasi</span> <span className='text-rose-500 underline underline-offset-2'>tidak ditemukan.</span>
                                 </>
                             } />
                         }

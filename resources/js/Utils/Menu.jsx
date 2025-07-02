@@ -39,7 +39,7 @@ export default function Menu() {
                 permissions: hasAnyPermission(['products-access']),
             },
             {
-                title: 'Pelanggan',
+                title: 'Anggota',
                 href: route('customers.index'),
                 active: url === '/dashboard/customers' ? true : false, // Update comparison here
                 icon: <IconUsersPlus size={20} strokeWidth={1.5} />,
@@ -67,6 +67,7 @@ export default function Menu() {
                 icon: <IconBooks size={20} />,
                 href: route('reports.sales'),
                 permissions: true, // atau kamu bisa cek pakai permission logic
+                permissions: hasAnyPermission(['permissions-access']),
             },
         ]
     },

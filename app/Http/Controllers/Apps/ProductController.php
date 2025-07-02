@@ -57,7 +57,6 @@ class ProductController extends Controller
          * validate
          */
         $request->validate([
-            'barcode' => 'required|unique:products,barcode',
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
@@ -72,7 +71,6 @@ class ProductController extends Controller
         //create product
         Product::create([
             'image' => $image->hashName(),
-            'barcode' => $request->barcode,
             'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
@@ -115,7 +113,6 @@ class ProductController extends Controller
          * validate
          */
         $request->validate([
-            'barcode' => 'required|unique:products,barcode,' . $product->id,
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',

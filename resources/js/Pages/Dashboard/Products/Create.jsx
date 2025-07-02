@@ -15,7 +15,6 @@ export default function Create({ categories }) {
 
     const { data, setData, post, processing } = useForm({
         image: '',
-        barcode: '',
         title: '',
         category_id: '',
         description: '',
@@ -52,15 +51,16 @@ export default function Create({ categories }) {
                     })
                 }
             },
-            onError: () => {
-                toast('Terjadi kesalahan dalam penyimpanan data', {
-                    style: {
-                        borderRadius: '10px',
-                        background: '#FF0000',
-                        color: '#fff',
-                    },
-                })
-            },
+            onError: (errors) => {
+                if (errors) {
+                    // Tampilkan semua error dalam bentuk toast
+                    Object.values(errors).forEach((message) => {
+                        toast.error(message);
+                    });
+                } else {
+                    toast.error('Terjadi kesalahan dalam penyimpanan data');
+                }
+            }
         })
     }
 
@@ -102,16 +102,6 @@ export default function Create({ categories }) {
                             multiple={false}
                             searchable={true}
                             displayKey='name'
-                        />
-                    </div>
-                    <div className='col-span-12'>
-                        <Input
-                            type={'text'}
-                            label={'Kode Produk/Barcode'}
-                            value={data.barcode}
-                            onChange={e => setData('barcode', e.target.value)}
-                            errors={errors.barcode}
-                            placeholder={'Barcode'}
                         />
                     </div>
                     <div className='col-span-6'>

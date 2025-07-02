@@ -53,6 +53,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     Route::get('/dashboard/reports/sales', [ReportController::class, 'salesReport'])
         ->name('reports.sales');
+    Route::put('/transaction/{id}/mark-as-paid', [ReportController::class, 'markAsPaid'])
+        ->name('transactions.markAsPaid');
+    Route::get('/dashboard/reports/sales/pdf', [ReportController::class, 'exportPdf'])
+        ->name('reports.sales.pdf');
 });
 
 require __DIR__ . '/auth.php';

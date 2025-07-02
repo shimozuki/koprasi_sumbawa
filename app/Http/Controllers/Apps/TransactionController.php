@@ -25,18 +25,23 @@ class TransactionController extends Controller
         $carts = Cart::with('product')->where('cashier_id', auth()->user()->id)->latest()->get();
 
         //get all customers
-        $customers = Customer::latest()->get();
+        $customers = Customer::where('is_anggota', 1)->latest()->get();
 
         $carts_total = 0;
         foreach ($carts as $cart) {
             $carts_total += $cart->price * $cart->qty; // Assuming your quantity column is named 'quantity'
         }
 
+        $products = Product::select('id', 'title', 'sell_price', 'stock')
+            ->orderBy('title')
+            ->get();
+
 
         return Inertia::render('Dashboard/Transactions/Index', [
             'carts' => $carts,
             'carts_total' => $carts_total,
-            'customers' => $customers
+            'customers' => $customers,
+            'products' => $products
         ]);
     }
 

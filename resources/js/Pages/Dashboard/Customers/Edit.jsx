@@ -49,9 +49,9 @@ export default function Create({ customer }) {
 
     return (
         <>
-            <Head title='Tambah Data Pelanggan' />
+            <Head title='Tambah Data Anggota Koperasi' />
             <Card
-                title={'Edit Pelanggan'}
+                title={'Edit Anggota Koperasi'}
                 icon={<IconUsersPlus size={20} strokeWidth={1.5} />}
                 footer={
                     <Button
@@ -69,7 +69,7 @@ export default function Create({ customer }) {
                             name='name'
                             label={'Name'}
                             type={'text'}
-                            placeholder={'Nama pelanggan'}
+                            placeholder={'Nama Anggota Koperasi'}
                             errors={errors.name}
                             onChange={e => setData('name', e.target.value)}
                             value={data.name}
@@ -80,7 +80,7 @@ export default function Create({ customer }) {
                             name='no_telp'
                             label={'No. Handphone'}
                             type={'text'}
-                            placeholder={'No. Handphone pelanggan'}
+                            placeholder={'No. Handphone Anggota Koperasi'}
                             errors={errors.no_telp}
                             onChange={e => setData('no_telp', e.target.value)}
                             value={data.no_telp}
