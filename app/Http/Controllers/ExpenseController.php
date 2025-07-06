@@ -27,7 +27,7 @@ class ExpenseController extends Controller
 
         Expense::create($validated);
 
-        return redirect()->route('report.Expenses')->with('success', 'Pengeluaran berhasil ditambahkan.');
+        return redirect()->route('reports.expenses')->with('success', 'Pengeluaran berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
