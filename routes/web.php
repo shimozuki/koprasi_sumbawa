@@ -60,6 +60,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         ->name('reports.sales.pdf');
     Route::get('/dashboard/reports/expenses', [ReportController::class, 'expenses'])->name('reports.expenses');
     Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
+    Route::put('/expenses/{id}', [ExpenseController::class, 'update'])->name('expenses.update');
 });
 
 require __DIR__ . '/auth.php';

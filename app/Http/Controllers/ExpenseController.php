@@ -27,6 +27,21 @@ class ExpenseController extends Controller
 
         Expense::create($validated);
 
-        return redirect()->route('report.index')->with('success', 'Pengeluaran berhasil ditambahkan.');
+        return redirect()->route('report.Expenses')->with('success', 'Pengeluaran berhasil ditambahkan.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'tanggal' => 'required|date',
+            'kategori' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'jumlah' => 'required|numeric|min:0',
+        ]);
+
+        $expense = Expense::findOrFail($id);
+        $expense->update($validated);
+
+        return redirect()->route('reports.expenses')->with('success', 'Pengeluaran berhasil diperbarui.');
     }
 }
