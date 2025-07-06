@@ -4,6 +4,7 @@ use App\Http\Controllers\Apps\CategoryController;
 use App\Http\Controllers\Apps\CustomerController;
 use App\Http\Controllers\Apps\ProductController;
 use App\Http\Controllers\Apps\TransactionController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -57,6 +58,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         ->name('transactions.markAsPaid');
     Route::get('/dashboard/reports/sales/pdf', [ReportController::class, 'exportPdf'])
         ->name('reports.sales.pdf');
+    Route::get('/dashboard/reports/expenses', [ReportController::class, 'expenses'])->name('reports.expenses');
+    Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
 });
 
 require __DIR__ . '/auth.php';

@@ -63,11 +63,18 @@ export default function Menu() {
         title: "Laporan",
         details: [
             {
-                title: "Laporan Transaksi",
+                title: "Laporan Penjualan",
                 icon: <IconBooks size={20} />,
                 href: route('reports.sales'),
-                permissions: true, // atau kamu bisa cek pakai permission logic
-                permissions: hasAnyPermission(['permissions-access']),
+                active: url === '/dashboard/reports/sales',
+                permissions: true,
+            },
+            {
+                title: "Laporan Pengeluaran",
+                icon: <IconChartBarPopular size={20} />,
+                href: route('reports.expenses'),
+                active: url === '/dashboard/reports/expenses',
+                permissions: true,
             },
         ]
     },
