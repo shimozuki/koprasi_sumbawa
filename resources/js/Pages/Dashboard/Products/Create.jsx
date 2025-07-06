@@ -66,9 +66,9 @@ export default function Create({ categories }) {
 
     return (
         <>
-            <Head title='Tambah Data Produk' />
+            <Head title='Tambah Data Pembelian Produk' />
             <Card
-                title={'Tambah Data Produk'}
+                title={'Tambah Data Pembelian Produk'}
                 icon={<IconUsersPlus size={20} strokeWidth={1.5} />}
                 footer={
                     <Button
@@ -82,15 +82,6 @@ export default function Create({ categories }) {
             >
 
                 <div className='grid grid-cols-12 gap-4'>
-                    <div className='col-span-12'>
-                        <Input
-                            type={'file'}
-                            label={'Gambar'}
-                            onChange={handleImageChange}
-                            errors={errors.image}
-                            placeholder={'Gambar produk'}
-                        />
-                    </div>
                     <div className='col-span-12'>
                         <InputSelect
                             label="Kategori"
@@ -153,6 +144,15 @@ export default function Create({ categories }) {
                             onChange={e => setData('sell_price', e.target.value)}
                             errors={errors.sell_price}
                             placeholder={'Harga jual produk'}
+                        />
+                    </div>
+                    <div className='col-span-12'>
+                        <Input
+                            type={'file'}
+                            label={'Nota Pembelian'}
+                            onChange={handleImageChange}
+                            errors={errors.image}
+                            placeholder={'Nota Pembelian'}
                         />
                     </div>
                 </div>

@@ -19,14 +19,14 @@ export default function Index({ products }) {
 
     return (
         <>
-            <Head title='Produk' />
+            <Head title='Pembelian Produk' />
             <div className='mb-2'>
                 <div className='flex justify-between items-center gap-2'>
                     <Button
                         type={'link'}
                         icon={<IconCirclePlus size={20} strokeWidth={1.5} />}
                         className={'border bg-white text-gray-700 dark:bg-gray-950 dark:border-gray-800 dark:text-gray-200'}
-                        label={'Tambah Data Produk'}
+                        label={'Tambah Data Pembelian Produk'}
                         href={route('products.create')}
                     />
                     <div className='w-full md:w-4/12'>
@@ -37,7 +37,7 @@ export default function Index({ products }) {
                     </div>
                 </div>
             </div>
-            <Table.Card title={'Data Produk'}>
+            <Table.Card title={'Data Pembelian Produk'}>
                 <Table>
                     <Table.Thead>
                         <tr>

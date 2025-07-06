@@ -32,7 +32,7 @@ export default function Menu() {
                 permissions: hasAnyPermission(['categories-access']),
             },
             {
-                title: 'Produk',
+                title: 'Pembelian Produk',
                 href: route('products.index'),
                 active: url === '/dashboard/products' ? true : false, // Update comparison here
                 icon: <IconBox size={20} strokeWidth={1.5} />,
