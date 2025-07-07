@@ -109,19 +109,17 @@ export default function Expenses() {
                     </button>
                 </div>
 
-                {role === 'admin' && (
-                    <button
-                        onClick={() => {
-                            router.get(route('reports.expenses.pdf'), {
-                                start_date: startDate,
-                                end_date: endDate,
-                            }, { preserveScroll: true });
-                        }}
-                        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 ml-4 mt-6"
-                    >
-                        Cetak Laporan (PDF) {role}
-                    </button>
-                )}
+                <button
+                    onClick={() => {
+                        router.get(route('reports.expenses.pdf'), {
+                            start_date: startDate,
+                            end_date: endDate,
+                        }, { preserveScroll: true });
+                    }}
+                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 ml-4 mt-6"
+                >
+                    Cetak Laporan (PDF) {role}
+                </button>
             </div>
 
             <button

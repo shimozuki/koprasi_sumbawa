@@ -128,7 +128,9 @@ class ReportController extends Controller
         $details = $query->get();
 
         $pdf = Pdf::loadView('reports.sales_pdf', compact('details', 'start_date', 'end_date', 'status', 'jenis_customer'));
-        return $pdf->stream('laporan-penjualan.pdf');
+        return $pdf->stream('laporan-penjualan.pdf', [
+            'Attachment' => false,
+        ]);
     }
 
 
@@ -198,5 +200,75 @@ class ReportController extends Controller
             'start_date' => $start_date,
             'end_date' => $end_date,
         ]);
+    }
+
+    public function exportPdfE(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // 1. Pembelian Barang
+        $produk = Product::select(
+            \DB::raw('null as id'),
+            \DB::raw('"Pembelian Barang" as kategori'),
+            \DB::raw('SUM(buy_price * stock) as total'),
+            \DB::raw('MAX(updated_at) as tanggal'),
+            \DB::raw('null as deskripsi'),
+            \DB::raw('null as jumlah')
+        )
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+                return $query->whereBetween('updated_at', [
+                    Carbon::parse($start_date)->startOfDay(),
+                    Carbon::parse($end_date)->endOfDay()
+                ]);
+            })
+            ->first();
+
+        // 2. Pengeluaran Manual
+        $pengeluaranManual = Expense::select(
+            'id',
+            'kategori',
+            'jumlah as total',
+            'tanggal',
+            'deskripsi',
+            'jumlah'
+        )
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+                return $query->whereBetween('tanggal', [
+                    Carbon::parse($start_date)->startOfDay(),
+                    Carbon::parse($end_date)->endOfDay()
+                ]);
+            })
+            ->get();
+
+        // Gabungkan
+        $pengeluaransGabungan = collect([$produk])->merge($pengeluaranManual);
+
+        // Total pengeluaran
+        $total = $pengeluaransGabungan->sum('total');
+
+        // Kas Masuk
+        $kasMasuk = TransactionDetail::join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+            ->where('transactions.paid_status', 'lunas')
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+                return $query->whereBetween('transaction_details.created_at', [
+                    Carbon::parse($start_date)->startOfDay(),
+                    Carbon::parse($end_date)->endOfDay()
+                ]);
+            })
+            ->select(\DB::raw('SUM(transaction_details.qty * transaction_details.price) as total'))
+            ->value('total');
+
+        $saldo = $kasMasuk - $total;
+
+        $pdf = Pdf::loadView('reports.expenses_pdf', [
+            'expenses' => $pengeluaransGabungan,
+            'total' => $total,
+            'saldo' => $saldo,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+        ]);
+
+        return $pdf->stream('laporan-pengeluaran.pdf');
     }
 }

@@ -61,6 +61,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/dashboard/reports/expenses', [ReportController::class, 'expenses'])->name('reports.expenses');
     Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
     Route::put('/expenses/{id}', [ExpenseController::class, 'update'])->name('expenses.update');
+    Route::get('/dashboard/reports/expenses/pdf', [ReportController::class, 'exportPdfE'])->name('reports.expenses.pdf');
 });
 
 require __DIR__ . '/auth.php';

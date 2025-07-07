@@ -58,7 +58,7 @@ export default function Index({ products }) {
                                         {++i + (products.current_page - 1) * products.per_page}
                                     </Table.Td>
                                     <Table.Td>{product.category.name}</Table.Td>
-                                    <Table.Td>{product.description}</Table.Td>
+                                    <Table.Td>{product.title}</Table.Td>
                                     <Table.Td>{formatPrice(product.buy_price)}</Table.Td>
                                     <Table.Td>{formatPrice(product.sell_price)}</Table.Td>
                                     <Table.Td>{product.stock}</Table.Td>
